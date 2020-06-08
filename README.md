@@ -1,6 +1,17 @@
 # Welcome to the ft_printf! ![score](https://img.shields.io/badge/0/100-5cb85c?style=for-the-badge) 
 > ft_printf is the project, which recodes printf.
 
+## Progress table
+- [x] n
+- [ ] fge
+- [x] c
+- [x] s
+- [ ] p
+- [ ] di
+- [ ] uxX
+- [x] %
+
+
 A format specifier follows this prototype :  
 
 ```
