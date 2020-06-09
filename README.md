@@ -1,7 +1,7 @@
 # Welcome to the ft_printf! ![score](https://img.shields.io/badge/0/100-5cb85c?style=for-the-badge) 
 > ft_printf is the project, which recodes printf.
 
-## Progress table
+## Progress table (4/13)
 - [x] n
 - [ ] fge
 - [x] c
