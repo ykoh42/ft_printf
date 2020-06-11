@@ -6,7 +6,7 @@
 /*   By: ykoh <ykoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/18 16:39:50 by ykoh              #+#    #+#             */
-/*   Updated: 2020/06/21 14:39:41 by ykoh             ###   ########.fr       */
+/*   Updated: 2020/06/24 04:45:16 by ykoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,24 +33,25 @@ typedef struct	s_meta {
 	int		precision;
 	char	*length;
 	char	specifier;
-	
 }				t_meta;
+
+typedef ssize_t	(*t_func)(int, const void *, size_t);
 
 int				ft_printf(const char *restrict format, ...);
 
-int				put_conversion(const char *restrict *format, va_list ap, long long *cnt);
+int				put_conversion(const char *restrict *format, va_list ap,
+								long long *cnt);
 void			parse_format(const char *restrict *format, va_list ap,
-							t_meta *fs);
+								t_meta *fs);
 void			set_meta(const char *restrict *format, va_list ap, t_meta *fs);
 int				put_format(va_list ap, t_meta *fs, long long *cnt);
 
-
 void			set_flag(const char *restrict *format, t_meta *fs);
 void			set_width(const char *restrict *format, va_list ap, t_meta *fs);
-void			set_precision(const char *restrict *format, va_list ap, t_meta *fs);
+void			set_precision(const char *restrict *format, va_list ap,
+								t_meta *fs);
 void			set_length(const char *restrict *format, t_meta *fs);
 void			set_specifier(const char *restrict *format, t_meta *fs);
-
 
 int				put_specifier_percent(va_list ap, t_meta *fs, long long *cnt);
 
@@ -59,12 +60,14 @@ void			*type_new_c(va_list ap, char *length);
 
 int				put_specifier_n(va_list ap, t_meta *fs, long long *cnt);
 void			type_new_n(va_list ap, char *length, long long *cnt);
-void			type_new_n_with_length(va_list ap, char *length, long long *cnt);
+void			type_new_n_with_length(va_list ap, char *length,
+								long long *cnt);
 
 int				put_specifier_s(va_list ap, t_meta *fs, long long *cnt);
 
+int				put_specifier_di(va_list ap, t_meta *fs, long long *cnt);
 
 size_t			put_space_n(size_t n);
 size_t			put_zero_n(size_t n);
-
+ssize_t			without_write(int fildes, const void *buf, size_t nbyte);
 #endif
