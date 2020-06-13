@@ -6,7 +6,7 @@
 /*   By: ykoh <ykoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 17:12:21 by ykoh              #+#    #+#             */
-/*   Updated: 2020/06/21 17:12:24 by ykoh             ###   ########.fr       */
+/*   Updated: 2020/06/23 19:59:42 by ykoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ void	set_precision(const char *restrict *format, va_list ap, t_meta *fs)
 			(*format)++;
 		}
 	}
-	fs->precision = -1;
+	else
+		fs->precision = -1;
 }
 
 void	set_length(const char *restrict *format, t_meta *fs)
