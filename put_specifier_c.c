@@ -6,7 +6,7 @@
 /*   By: ykoh <ykoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 17:29:40 by ykoh              #+#    #+#             */
-/*   Updated: 2020/06/21 17:29:42 by ykoh             ###   ########.fr       */
+/*   Updated: 2020/06/22 17:26:20 by ykoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 void		*type_new_c(va_list ap, char *length)
 {
-	void	*type;
+	void	*c;
 
 	if (length != NULL && ft_strncmp(length, "l", 2) == 0)
 	{
-		type = ft_calloc(1, sizeof(wint_t));
-		*((wint_t *)type) = va_arg(ap, wint_t);
+		c = ft_calloc(1, sizeof(wint_t));
+		*((wint_t *)c) = va_arg(ap, wint_t);
 	}
 	else
 	{
-		type = ft_calloc(1, sizeof(int));
-		*((int *)type) = va_arg(ap, int);
+		c = ft_calloc(1, sizeof(int));
+		*((int *)c) = va_arg(ap, int);
 	}
-	return (type);
+	return (c);
 }
 
 int			put_specifier_c(va_list ap, t_meta *fs, long long *cnt)
