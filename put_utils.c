@@ -1,5 +1,12 @@
 #include "ft_printf.h"
 
+ssize_t	without_write(int fildes, const void *buf, size_t nbyte)
+{
+	if (fildes != 1 || !buf)
+		return (0);
+	return (nbyte);
+}
+
 size_t	put_zero_n(size_t n)
 {
 	const size_t	cnt = n;
