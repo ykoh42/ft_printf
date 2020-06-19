@@ -6,7 +6,7 @@
 /*   By: ykoh <ykoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 04:50:00 by ykoh              #+#    #+#             */
-/*   Updated: 2020/06/24 04:50:05 by ykoh             ###   ########.fr       */
+/*   Updated: 2020/06/25 04:14:05 by ykoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,9 @@ int			put_specifier_di(va_list ap, t_meta *fs, long long *cnt)
 	{
 		sign_plus_di = put_sign(fs, di) + put_di(fs, di);
 		if (fs->width && fs->width > sign_plus_di)
-			*cnt += put_space_n(fs->width - sign_plus_di);
+			*cnt += (fs->zero && fs->precision == -1) ?
+					put_zero_n(fs->width - sign_plus_di) :
+					put_space_n(fs->width - sign_plus_di);
 		fs->minus = '-';
 		*cnt += put_sign(fs, di) + put_di(fs, di);
 	}
