@@ -6,7 +6,7 @@
 /*   By: ykoh <ykoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 17:29:16 by ykoh              #+#    #+#             */
-/*   Updated: 2020/06/21 17:29:19 by ykoh             ###   ########.fr       */
+/*   Updated: 2020/06/24 06:03:44 by ykoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,5 @@ void		type_new_n(va_list ap, char *length, long long *cnt)
 int			put_specifier_n(va_list ap, t_meta *fs, long long *cnt)
 {
 	type_new_n(ap, fs->length, cnt);
-	return ((int)*cnt);
+	return (*cnt);
 }
