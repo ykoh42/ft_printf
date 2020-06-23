@@ -6,7 +6,7 @@
 /*   By: ykoh <ykoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 17:01:08 by ykoh              #+#    #+#             */
-/*   Updated: 2020/06/22 17:01:15 by ykoh             ###   ########.fr       */
+/*   Updated: 2020/06/25 14:43:24 by ykoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char			*ft_lltoa(long long n)
 		return (ft_strdup("−9223372036854775808"));
 	if (!(num = ft_calloc(num_len + 1, sizeof(char))))
 		return (NULL);
-	n = (n >= 0) ? n : -n; 
+	n = (n >= 0) ? n : -n;
 	i = 0;
 	while (i < num_len)
 	{

@@ -6,7 +6,7 @@
 /*   By: ykoh <ykoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 17:01:08 by ykoh              #+#    #+#             */
-/*   Updated: 2020/06/25 04:01:04 by ykoh             ###   ########.fr       */
+/*   Updated: 2020/06/25 14:43:12 by ykoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char			*ft_hextoa(unsigned long long n, char specifier)
 		rem = n % 16;
 		n = n / 16;
 		if (specifier == 'x')
-			num[i] = "0123456789abcdef"[rem];	
+			num[i] = "0123456789abcdef"[rem];
 		else
 			num[i] = "0123456789ABCDEF"[rem];
 		i++;
