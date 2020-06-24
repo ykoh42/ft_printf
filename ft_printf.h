@@ -6,7 +6,7 @@
 /*   By: ykoh <ykoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/18 16:39:50 by ykoh              #+#    #+#             */
-/*   Updated: 2020/06/24 04:45:16 by ykoh             ###   ########.fr       */
+/*   Updated: 2020/06/25 14:40:55 by ykoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,9 @@ void			type_new_n_with_length(va_list ap, char *length,
 								long long *cnt);
 
 int				put_specifier_s(va_list ap, t_meta *fs, long long *cnt);
-
 int				put_specifier_di(va_list ap, t_meta *fs, long long *cnt);
+int				put_specifier_x(va_list ap, t_meta *fs, long long *cnt);
+int				put_specifier_u(va_list ap, t_meta *fs, long long *cnt);
 
 size_t			put_space_n(size_t n);
 size_t			put_zero_n(size_t n);
