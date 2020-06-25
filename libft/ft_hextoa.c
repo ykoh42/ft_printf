@@ -6,7 +6,7 @@
 /*   By: ykoh <ykoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 17:01:08 by ykoh              #+#    #+#             */
-/*   Updated: 2020/06/25 14:43:12 by ykoh             ###   ########.fr       */
+/*   Updated: 2020/06/25 15:41:07 by ykoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static	size_t	ft_numlen(unsigned long long n)
 {
 	size_t	len;
 
-	len = 0;
+	len = (n == 0) ? 1 : 0;
 	while (n)
 	{
 		n /= 16;
