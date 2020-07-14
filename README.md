@@ -10,11 +10,10 @@ It works in the following conversions :
 | flags | length | specifier |
 | - | - | - |
 | `-0# +` | `l ll h hh` | `nfgecspdiuxX%` |
+
 <br/>
 
-
-<div align = "center">
-    <b>The relationship chart between length and specifier</b>
+**The relationship chart between length and specifier**
 
 | length | `d` `i` |   `u` `x` `X`   |           `f` `e` `g`           | `c` | `s` | `p` | `n` |
 |    -   |    -    |        -        |                -                |  -  |  -  |  -  |  -  |
@@ -24,7 +23,6 @@ It works in the following conversions :
 |    l   | long int | unsigned long int || wint_t | wchar_t * || long int * |
 |   ll   | long long int | unsigned long int || | | | long long int * |
 
-</div>
 
 ## Tester
 
