@@ -6,7 +6,7 @@
 /*   By: ykoh <ykoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 17:29:16 by ykoh              #+#    #+#             */
-/*   Updated: 2020/07/13 02:10:45 by ykoh             ###   ########.fr       */
+/*   Updated: 2020/07/15 01:16:44 by ykoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ static int	put_specifier_efg_process(t_meta *fs, long long *cnt, char *efg)
 		width_cnt = put_sign(fs, efg) + put_efg(fs, efg);
 		fs->minus = '-';
 		if (fs->width && fs->width > width_cnt)
-			*cnt += (fs->zero) ?
+			*cnt += (fs->zero &&
+			!((ft_strnstr(efg, "inf", 4)) || (ft_strnstr(efg, "nan", 4))))?
 				put_sign(fs, efg) + put_zero_n(fs->width - width_cnt) :
 				put_space_n(fs->width - width_cnt) + put_sign(fs, efg);
 		else
