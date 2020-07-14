@@ -6,13 +6,13 @@
 /*   By: ykoh <ykoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 17:29:16 by ykoh              #+#    #+#             */
-/*   Updated: 2020/06/24 06:03:44 by ykoh             ###   ########.fr       */
+/*   Updated: 2020/07/13 22:45:58 by ykoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void		type_new_n_with_length(va_list ap, char *length, long long *cnt)
+static void	type_new_n_with_length(va_list ap, char *length, long long *cnt)
 {
 	void	*n;
 
@@ -38,7 +38,7 @@ void		type_new_n_with_length(va_list ap, char *length, long long *cnt)
 	}
 }
 
-void		type_new_n(va_list ap, char *length, long long *cnt)
+static void	type_new_n(va_list ap, char *length, long long *cnt)
 {
 	void	*n;
 

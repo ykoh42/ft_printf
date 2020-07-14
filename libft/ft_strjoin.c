@@ -1,46 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_utoa.c                                          :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ykoh <ykoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/22 17:01:08 by ykoh              #+#    #+#             */
-/*   Updated: 2020/06/25 18:20:14 by ykoh             ###   ########.fr       */
+/*   Created: 2020/04/14 16:31:35 by ykoh              #+#    #+#             */
+/*   Updated: 2020/05/30 12:43:57 by ykoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	size_t	ft_numlen(unsigned long long n)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	size_t	len;
+	size_t	str_len;
+	char	*str;
 
-	len = (n == 0) ? 1 : 0;
-	while (n)
-	{
-		n /= 10;
-		len++;
-	}
-	return (len);
-}
-
-char			*ft_utoa(unsigned long long n)
-{
-	char			*num;
-	int				rem;
-	size_t			i;
-	const size_t	num_len = ft_numlen(n);
-
-	if (!(num = ft_calloc(num_len + 1, sizeof(char))))
+	if (!s1 || !s2)
 		return (NULL);
-	i = 0;
-	while (i < num_len)
-	{
-		rem = n % 10;
-		n = n / 10;
-		num[i] = "0123456789"[rem];
-		i++;
-	}
-	return (ft_strrev(num));
+	str_len = ft_strlen(s1) + ft_strlen(s2);
+	if (!(str = malloc((str_len + 1) * sizeof(char))))
+		return (NULL);
+	ft_strlcpy(str + ft_strlcpy(str, s1, str_len + 1), s2, str_len + 1);
+	return (str);
 }

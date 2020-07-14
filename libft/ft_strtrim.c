@@ -1,46 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_utoa.c                                          :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ykoh <ykoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/22 17:01:08 by ykoh              #+#    #+#             */
-/*   Updated: 2020/06/25 18:20:14 by ykoh             ###   ########.fr       */
+/*   Created: 2020/04/14 18:29:28 by ykoh              #+#    #+#             */
+/*   Updated: 2020/05/05 00:48:01 by ykoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	size_t	ft_numlen(unsigned long long n)
+char	*ft_strtrim(char const *s1, char const *set)
 {
-	size_t	len;
+	char	*rear;
 
-	len = (n == 0) ? 1 : 0;
-	while (n)
-	{
-		n /= 10;
-		len++;
-	}
-	return (len);
-}
-
-char			*ft_utoa(unsigned long long n)
-{
-	char			*num;
-	int				rem;
-	size_t			i;
-	const size_t	num_len = ft_numlen(n);
-
-	if (!(num = ft_calloc(num_len + 1, sizeof(char))))
+	if (!s1 || !set)
 		return (NULL);
-	i = 0;
-	while (i < num_len)
+	while (*s1)
 	{
-		rem = n % 10;
-		n = n / 10;
-		num[i] = "0123456789"[rem];
-		i++;
+		if (!(ft_strchr(set, *s1)))
+			break ;
+		s1++;
 	}
-	return (ft_strrev(num));
+	rear = (char *)s1 + (ft_strlen(s1) - 1);
+	while (rear >= s1)
+	{
+		if (!(ft_strchr(set, *rear)))
+			break ;
+		rear--;
+	}
+	return (ft_strndup(s1, ++rear - s1));
 }

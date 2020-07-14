@@ -1,46 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_utoa.c                                          :+:      :+:    :+:   */
+/*   ft_wcslen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ykoh <ykoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/22 17:01:08 by ykoh              #+#    #+#             */
-/*   Updated: 2020/06/25 18:20:14 by ykoh             ###   ########.fr       */
+/*   Created: 2020/03/03 18:58:16 by ykoh              #+#    #+#             */
+/*   Updated: 2020/07/11 20:56:06 by ykoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	size_t	ft_numlen(unsigned long long n)
+size_t	ft_wcslen(const wchar_t *s)
 {
-	size_t	len;
+	size_t	i;
 
-	len = (n == 0) ? 1 : 0;
-	while (n)
-	{
-		n /= 10;
-		len++;
-	}
-	return (len);
-}
-
-char			*ft_utoa(unsigned long long n)
-{
-	char			*num;
-	int				rem;
-	size_t			i;
-	const size_t	num_len = ft_numlen(n);
-
-	if (!(num = ft_calloc(num_len + 1, sizeof(char))))
-		return (NULL);
 	i = 0;
-	while (i < num_len)
-	{
-		rem = n % 10;
-		n = n / 10;
-		num[i] = "0123456789"[rem];
+	while (s[i])
 		i++;
-	}
-	return (ft_strrev(num));
+	return (i);
 }

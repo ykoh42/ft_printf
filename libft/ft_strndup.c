@@ -1,46 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_utoa.c                                          :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ykoh <ykoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/22 17:01:08 by ykoh              #+#    #+#             */
-/*   Updated: 2020/06/25 18:20:14 by ykoh             ###   ########.fr       */
+/*   Created: 2020/04/09 20:31:13 by ykoh              #+#    #+#             */
+/*   Updated: 2020/05/05 07:49:47 by ykoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	size_t	ft_numlen(unsigned long long n)
+char	*ft_strndup(const char *s1, size_t n)
 {
-	size_t	len;
+	const size_t	len = ft_strnlen(s1, n);
+	char			*dst;
 
-	len = (n == 0) ? 1 : 0;
-	while (n)
-	{
-		n /= 10;
-		len++;
-	}
-	return (len);
-}
-
-char			*ft_utoa(unsigned long long n)
-{
-	char			*num;
-	int				rem;
-	size_t			i;
-	const size_t	num_len = ft_numlen(n);
-
-	if (!(num = ft_calloc(num_len + 1, sizeof(char))))
+	if (!(dst = malloc((len + 1) * sizeof(char))))
 		return (NULL);
-	i = 0;
-	while (i < num_len)
-	{
-		rem = n % 10;
-		n = n / 10;
-		num[i] = "0123456789"[rem];
-		i++;
-	}
-	return (ft_strrev(num));
+	ft_strlcpy(dst, s1, len + 1);
+	return (dst);
 }

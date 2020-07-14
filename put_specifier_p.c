@@ -6,7 +6,7 @@
 /*   By: ykoh <ykoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 17:29:16 by ykoh              #+#    #+#             */
-/*   Updated: 2020/06/25 15:28:53 by ykoh             ###   ########.fr       */
+/*   Updated: 2020/07/12 15:31:26 by ykoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,18 @@
 
 static int	put_p(t_meta *fs, char *p)
 {
-	t_func			f;
+	t_write			f;
 	int				ret;
 	const size_t	p_len = ft_strlen(p);
 
+	if (fs->precision == 0 && *p == '0')
+		return (fs->precision);
 	f = (fs->minus) ? write : without_write;
-	ret = f(1, p, p_len);
+	ret = 0;
+	if (fs->precision != -1 && (size_t)fs->precision > p_len)
+		ret = (fs->minus) ?
+			put_zero_n(fs->precision - p_len) : fs->precision - p_len;
+	ret += f(1, p, p_len);
 	return (ret);
 }
 

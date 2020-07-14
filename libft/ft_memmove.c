@@ -1,46 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_utoa.c                                          :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ykoh <ykoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/22 17:01:08 by ykoh              #+#    #+#             */
-/*   Updated: 2020/06/25 18:20:14 by ykoh             ###   ########.fr       */
+/*   Created: 2020/03/09 17:19:14 by ykoh              #+#    #+#             */
+/*   Updated: 2020/04/10 22:30:28 by ykoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	size_t	ft_numlen(unsigned long long n)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	size_t	len;
-
-	len = (n == 0) ? 1 : 0;
-	while (n)
-	{
-		n /= 10;
-		len++;
-	}
-	return (len);
-}
-
-char			*ft_utoa(unsigned long long n)
-{
-	char			*num;
-	int				rem;
-	size_t			i;
-	const size_t	num_len = ft_numlen(n);
-
-	if (!(num = ft_calloc(num_len + 1, sizeof(char))))
+	if (!dst && !src)
 		return (NULL);
-	i = 0;
-	while (i < num_len)
-	{
-		rem = n % 10;
-		n = n / 10;
-		num[i] = "0123456789"[rem];
-		i++;
-	}
-	return (ft_strrev(num));
+	if ((size_t)(dst - src) >= len)
+		return (ft_memcpy(dst, src, len));
+	while (len--)
+		*((unsigned char *)dst + len) = *((unsigned char *)src + len);
+	return (dst);
 }

@@ -6,7 +6,7 @@
 /*   By: ykoh <ykoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 17:29:16 by ykoh              #+#    #+#             */
-/*   Updated: 2020/06/25 14:32:10 by ykoh             ###   ########.fr       */
+/*   Updated: 2020/07/12 15:31:38 by ykoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 static int	put_u(t_meta *fs, char *u)
 {
-	t_func	f;
+	t_write	f;
 	int		ret;
 	size_t	u_len;
 
+	if (fs->precision == 0 && *u == '0')
+		return (fs->precision);
 	u_len = ft_strlen(u);
 	f = (fs->minus) ? write : without_write;
 	ret = 0;
@@ -34,6 +36,10 @@ static void	*type_new_u(va_list ap, t_meta *fs)
 		return (ft_utoa(va_arg(ap, unsigned long long int)));
 	else if (fs->length != NULL && ft_strncmp(fs->length, "l", 2) == 0)
 		return (ft_utoa(va_arg(ap, unsigned long int)));
+	else if (fs->length != NULL && ft_strncmp(fs->length, "hh", 2) == 0)
+		return (ft_utoa((unsigned char)va_arg(ap, unsigned int)));
+	else if (fs->length != NULL && ft_strncmp(fs->length, "h", 2) == 0)
+		return (ft_utoa((unsigned short int)va_arg(ap, unsigned int)));
 	else
 		return (ft_utoa(va_arg(ap, unsigned int)));
 }

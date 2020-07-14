@@ -5,102 +5,107 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ykoh <ykoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/21 17:12:21 by ykoh              #+#    #+#             */
-/*   Updated: 2020/06/23 19:59:42 by ykoh             ###   ########.fr       */
+/*   Created: 2020/07/12 16:50:31 by ykoh              #+#    #+#             */
+/*   Updated: 2020/07/12 16:50:33 by ykoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	set_flag(const char *restrict *format, t_meta *fs)
+void	set_positional(char **str)
 {
-	while (**format && ft_strchr("-+ #0", **format))
+	const char	*positional = ft_strchr(*str, '$');
+
+	if (positional)
+		*str = (char *)positional;
+}
+
+void	set_flag(char **str, t_meta *fs)
+{
+	while (ft_strchr("-+ #0", **str))
 	{
-		if (**format == '-')
+		if (**str == '-')
 			fs->minus = '-';
-		if (**format == '+')
+		if (**str == '+')
 			fs->plus = '+';
-		if (**format == ' ')
+		if (**str == ' ')
 			fs->space = ' ';
-		if (**format == '#')
+		if (**str == '#')
 			fs->hash = '#';
-		if (**format == '0')
+		if (**str == '0')
 			fs->zero = '0';
-		(*format)++;
+		(*str)++;
 	}
 }
 
-void	set_width(const char *restrict *format, va_list ap, t_meta *fs)
+void	set_width(char **str, va_list ap, t_meta *fs)
 {
-	while (**format && ft_strchr("*0123456789", **format))
+	while (ft_strchr("*0123456789", **str))
 	{
-		if (**format == '*')
+		if (**str == '*')
 			fs->width = va_arg(ap, int);
-		if (ft_isdigit(**format))
+		if (fs->width < 0)
 		{
-			fs->width = ft_atoi(*format);
-			while (ft_isdigit(**format))
-				(*format)++;
+			fs->minus = '-';
+			fs->width = -fs->width;
+		}
+		if (ft_isdigit(**str))
+		{
+			fs->width = ft_atoi(*str);
+			while (ft_isdigit(**str))
+				(*str)++;
 			return ;
 		}
-		(*format)++;
+		(*str)++;
 	}
 }
 
-void	set_precision(const char *restrict *format, va_list ap, t_meta *fs)
+void	set_precision(char **str, va_list ap, t_meta *fs)
 {
-	if (**format == '.')
+	if (**str == '.')
 	{
-		(*format)++;
-		while (ft_strchr("*0123456789", **format))
+		(*str)++;
+		while (ft_strchr("*0123456789", **str))
 		{
-			if (**format == '*')
-				fs->precision = va_arg(ap, int);
-			if (ft_isdigit(**format))
+			if (**str == '*')
 			{
-				fs->precision = ft_atoi(*format);
-				while (ft_isdigit(**format))
-					(*format)++;
+				fs->precision = va_arg(ap, int);
+				fs->precision = (fs->precision < 0) ? -1 : fs->precision;
+			}
+			if (ft_isdigit(**str))
+			{
+				fs->precision = ft_atoi(*str);
+				while (ft_isdigit(**str))
+					(*str)++;
 				return ;
 			}
-			(*format)++;
+			(*str)++;
 		}
 	}
 	else
 		fs->precision = -1;
 }
 
-void	set_length(const char *restrict *format, t_meta *fs)
+void	set_length(char **str, t_meta *fs)
 {
-	while (**format && ft_strchr("lh", **format))
+	if (ft_strnstr(*str, "ll", 2))
 	{
-		if (ft_strnstr(*format, "ll", 2))
-		{
-			fs->length = "ll";
-			*format += 2;
-			return ;
-		}
-		if (**format == 'l')
-		{
-			fs->length = "l";
-			*format += 1;
-		}
-		if (ft_strnstr(*format, "hh", 2))
-		{
-			fs->length = "hh";
-			*format += 2;
-			return ;
-		}
-		if (**format == 'h')
-		{
-			fs->length = "h";
-			*format += 1;
-		}
+		fs->length = "ll";
+		*str += 2;
 	}
-}
-
-void	set_specifier(const char *restrict *format, t_meta *fs)
-{
-	if (**format && ft_strchr("nfgecspdiuxX%", **format))
-		fs->specifier = **format++;
+	else if (**str == 'l')
+	{
+		fs->length = "l";
+		*str += 1;
+	}
+	else if (ft_strnstr(*str, "hh", 2))
+	{
+		fs->length = "hh";
+		*str += 2;
+	}
+	else if (**str == 'h')
+	{
+		fs->length = "h";
+		*str += 1;
+	}
 }
