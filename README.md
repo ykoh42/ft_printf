@@ -68,21 +68,29 @@ It works in the following conversions :
 * **printf_lover_v2** by [charMstr](https://github.com/charMstr/)  
     
     ```shell
-    https://github.com/charMstr/printf_lover_v2.git
+    git clone https://github.com/charMstr/printf_lover_v2.git
     ```
 
 ---
 
 ## Mandatory part
 
-### Rules
+* The prototype of ft_printf should be int ft_printf(const char *, ...);
+* You have to recode the libc’s printf function
+* It must not do the buffer management like the real printf
+* It will manage the following conversions: `cspdiuxX%`
+* It will manage any combination of the following flags: `-0.*` and minimum field width with all conversions
+* It will be compared with the real printf
+* You must use the command ar to create your librairy, using the command libtool is forbidden.
+
 
 
 ---
 
 ## Bonus part
 
-
-### Rules
-
-ㅎㅎ
+* If the Mandatory part is not perfect don’t even think about bonuses
+* You don’t need to do all the bonuses
+* Manage one or more of the following conversions: `nfge`
+* Manage one or more of the following flags: `l ll h hh`
+* Manage all the following flags: `# +` (yes, one of them is a space)
