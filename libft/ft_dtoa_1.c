@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dtoa.c                                          :+:      :+:    :+:   */
+/*   ft_dtoa_1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ykoh <ykoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/01 04:44:51 by ykoh              #+#    #+#             */
-/*   Updated: 2020/07/13 02:11:54 by ykoh             ###   ########.fr       */
+/*   Updated: 2020/07/14 23:17:36 by ykoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,9 @@ static char	*ft_dtoa_exception(double n)
 char		*ft_dtoa(double n, int precision, char specifier)
 {
 	char		*ret;
-	char		*ret_scientific;
 
+	if (specifier != 'f' && specifier != 'e')
+		return (NULL);
 	ret = (ft_isneg_dbl(n)) ? ft_strdup("-") : ft_strdup("");
 	if (ft_isinf(n) || ft_isnan(n))
 		return (ft_strjoin_free(ret, ft_dtoa_exception(n)));
@@ -58,18 +59,6 @@ char		*ft_dtoa(double n, int precision, char specifier)
 	ret = ft_dtoa_process(n, precision + 20, ret);
 	if (specifier == 'e')
 		return (ft_dtoa_scientific(n, precision, ret));
-	else if (specifier == 'f')
+	else
 		return (ft_round(ret, precision));
-	else if (specifier == 'g')
-	{
-		ret_scientific = ft_dtoa_scientific(n, precision, ft_strdup(ret));
-		ret = ft_round(ret, precision);
-		if (ft_strlen(ret_scientific) > ft_strlen(ret))
-		{
-			free(ret);
-			return (ret_scientific);
-		}
-		free(ret_scientific);
-	}
-	return (ret);
 }
