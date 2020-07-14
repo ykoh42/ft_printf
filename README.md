@@ -15,7 +15,6 @@ It works in the following conversions :
 
 <div align = "center">
     <b>The relationship chart between length and specifier</b>
-</div>
 
 | length | `d` `i` |   `u` `x` `X`   |           `f` `e` `g`           | `c` | `s` | `p` | `n` |
 |    -   |    -    |        -        |                -                |  -  |  -  |  -  |  -  |
@@ -24,6 +23,8 @@ It works in the following conversions :
 |    h   | short int | unsigned short int ||||                 | short int * |
 |    l   | long int | unsigned long int || wint_t | wchar_t * || long int * |
 |   ll   | long long int | unsigned long int || | | | long long int * |
+
+</div>
 
 ## Tester
 
