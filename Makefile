@@ -6,7 +6,7 @@
 #    By: ykoh <ykoh@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/04/21 18:18:48 by ykoh              #+#    #+#              #
-#    Updated: 2020/07/13 22:56:20 by ykoh             ###   ########.fr        #
+#    Updated: 2020/07/16 04:49:38 by ykoh             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,5 +48,7 @@ fclean	:	clean
 			$(RM) $(NAME)
 
 re		:	fclean all
+
+bonus	:	all
 
 .PHONY	:	all bonus clean fclean re
