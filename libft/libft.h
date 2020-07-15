@@ -6,7 +6,7 @@
 /*   By: ykoh <ykoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:50:39 by ykoh              #+#    #+#             */
-/*   Updated: 2020/07/13 22:55:14 by ykoh             ###   ########.fr       */
+/*   Updated: 2020/07/14 23:11:08 by ykoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <limits.h>
-
+#include <stdio.h>
 typedef struct		s_list
 {
 	void			*content;
@@ -78,7 +78,10 @@ char				*ft_utoa(unsigned long long n);
 char				*ft_dtoa(double n, int precision, char specifier);
 char				*ft_dtoa_scientific(long double n, int precision,
 																	char *ret);
-
+/*
+char        		*convert_scientific(long double *n, int precision,
+										char *ret, int *exp);
+*/
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void				ft_putchar_fd(char c, int fd);
 void				ft_putstr_fd(char *s, int fd);

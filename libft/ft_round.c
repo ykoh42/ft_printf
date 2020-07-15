@@ -6,7 +6,7 @@
 /*   By: ykoh <ykoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/01 04:44:51 by ykoh              #+#    #+#             */
-/*   Updated: 2020/07/13 17:51:00 by ykoh             ###   ########.fr       */
+/*   Updated: 2020/07/15 22:26:28 by ykoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ static char	*ft_bankers(char *n, int precision)
 	const char	*p = n;
 	char		*even_odd;
 
+//	printf("bankers : %s\n", n);
 	if (!(n = ft_strchr(n, '.')))
 		return ((char *)p);
 	n += precision + 1;

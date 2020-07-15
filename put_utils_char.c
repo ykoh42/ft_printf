@@ -6,7 +6,7 @@
 /*   By: ykoh <ykoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/25 14:45:53 by ykoh              #+#    #+#             */
-/*   Updated: 2020/07/15 01:01:29 by ykoh             ###   ########.fr       */
+/*   Updated: 2020/07/15 01:27:44 by ykoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int		put_sign(t_meta *fs, char *n)
 
 	f = (fs->minus) ? write : without_write;
 	ret = 0;
+	if (ft_strnstr(n, "nan", 4))
+		return (0);
 	if (*n == '-')
 		ret = f(1, "-", 1);
 	else if (fs->plus)
