@@ -6,7 +6,7 @@
 #    By: ykoh <ykoh@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/04/21 18:18:48 by ykoh              #+#    #+#              #
-#    Updated: 2020/07/13 22:57:47 by ykoh             ###   ########.fr        #
+#    Updated: 2020/07/16 00:50:09 by ykoh             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRCS		=	ft_atoi.c\
 				ft_utoa.c\
 				ft_dtoa_1.c\
 				ft_dtoa_2.c\
+				ft_dtoa_3.c\
 				ft_memccpy.c\
 				ft_memchr.c\
 				ft_memcmp.c\
