@@ -6,11 +6,12 @@
 /*   By: ykoh <ykoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 04:18:39 by ykoh              #+#    #+#             */
-/*   Updated: 2020/07/16 05:25:14 by ykoh             ###   ########.fr       */
+/*   Updated: 2020/07/16 14:51:39 by ykoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
 static char	*reset_ret(const char *p, const size_t m)
 {
 	int				exp;
@@ -50,8 +51,7 @@ static char	*has_point(char *ret, int precision, char specifier)
 	return (ret);
 }
 
-
-char	*e_correction(char *ret, int precision, char specifier)
+char		*e_correction(char *ret, int precision, char specifier)
 {
 	const char		*p = ret;
 	const char		*e = ft_strchr(p, 'e');
