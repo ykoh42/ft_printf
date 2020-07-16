@@ -12,6 +12,30 @@
 
 #include "libft.h"
 
+static char	*has_point(char *ret, int precision, char specifier)
+{
+	const char	*p = ret;
+	const char	*e = ft_strchr(p, 'e');
+	char		*tmp;
+
+	while (*ret && ((*ret != '0')))
+		ret++;
+	tmp = ret;
+	while (*ret == '0')
+		ret++;
+	if (*ret != 'e')
+		return ((char *)p);
+	if (*(ret - 1) == '0' && *(tmp - 1) == '.')
+		tmp--;
+	if (ft_strchr(p, '.') && specifier == 'e')
+		ft_strlcpy(ft_strchr(p, '.') + precision + 1, e, ft_strlen(e) + 2);
+	else if (ft_strchr(p, '.') && specifier == 'g')
+		ft_strlcpy(tmp, e, ft_strlen(e) + 2);
+	ret = (char *)p;
+	return (ret);
+}
+
+
 char	*e_correction(char *ret, int precision, char specifier)
 {
 	const char		*p = ret;
@@ -46,42 +70,6 @@ char	*e_correction(char *ret, int precision, char specifier)
 		ret = ft_strjoin_free(tmp[0], tmp[1]);
 	}
 	else if (ft_strchr(p, '.'))
-	{
-		while (*ret && ((*ret != '0')))
-			ret++;
-		tmp[1] = ret;
-		while (*ret == '0')
-			ret++;
-		if (*ret != 'e')
-			return ((char *)p);
-		if (*(ret - 1) == '0' && *(tmp[1] - 1) == '.')
-			tmp[1]--;
-		if (ft_strchr(p, '.') && specifier == 'e')
-			ft_strlcpy(ft_strchr(p, '.') + precision + 1, e, ft_strlen(e) + 2);
-		else if (ft_strchr(p, '.') && specifier == 'g')
-			ft_strlcpy(tmp[1], e, ft_strlen(e) + 2);
-		ret = (char *)p;
-	}
-	return (ret);
-}
-static char	*has_point(char *ret)
-{
-	const char	*p = ret;
-	char		*tmp;
-
-	while (*ret && ((*ret != '0')))
-		ret++;
-	tmp = ret;
-	while (*ret == '0')
-		ret++;
-	if (*ret != 'e')
-		return ((char *)p);
-	if (*(ret - 1) == '0' && *(tmp - 1) == '.')
-		tmp--;
-	if (ft_strchr(p, '.') && specifier == 'e')
-		ft_strlcpy(ft_strchr(p, '.') + precision + 1, e, ft_strlen(e) + 2);
-	else if (ft_strchr(p, '.') && specifier == 'g')
-		ft_strlcpy(tmp, e, ft_strlen(e) + 2);
-	ret = (char *)p;
+		ret = has_point(ret, precision, specifier);
 	return (ret);
 }
