@@ -6,7 +6,7 @@
 /*   By: ykoh <ykoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 17:29:16 by ykoh              #+#    #+#             */
-/*   Updated: 2020/07/12 18:44:25 by ykoh             ###   ########.fr       */
+/*   Updated: 2020/07/20 21:21:51 by ykoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,17 +70,20 @@ static void	put_specifier_x_process(t_meta *fs, long long *cnt, char *x)
 static void	*type_new_x(va_list ap, t_meta *fs)
 {
 	if (fs->length != NULL && ft_strncmp(fs->length, "ll", 2) == 0)
-		return (ft_hextoa(va_arg(ap, unsigned long long int), fs->specifier));
+		return (ft_hextoa((unsigned long long int)va_arg(ap,
+									unsigned long long int), fs->specifier));
 	else if (fs->length != NULL && ft_strncmp(fs->length, "l", 2) == 0)
-		return (ft_hextoa(va_arg(ap, unsigned long int), fs->specifier));
+		return (ft_hextoa((unsigned long int)va_arg(ap,
+									unsigned long int), fs->specifier));
 	else if (fs->length != NULL && ft_strncmp(fs->length, "hh", 2) == 0)
-		return (ft_hextoa((unsigned char)va_arg(ap, unsigned int),
-				fs->specifier));
+		return (ft_hextoa((unsigned char)va_arg(ap,
+									unsigned int), fs->specifier));
 	else if (fs->length != NULL && ft_strncmp(fs->length, "h", 2) == 0)
-		return (ft_hextoa((unsigned short int)va_arg(ap, unsigned int),
-				fs->specifier));
+		return (ft_hextoa((unsigned short int)va_arg(ap,
+									unsigned int), fs->specifier));
 	else
-		return (ft_hextoa(va_arg(ap, unsigned int), fs->specifier));
+		return (ft_hextoa((unsigned int)va_arg(ap,
+									unsigned int), fs->specifier));
 }
 
 int			put_specifier_x(va_list ap, t_meta *fs, long long *cnt)

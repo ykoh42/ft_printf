@@ -6,7 +6,7 @@
 /*   By: ykoh <ykoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 17:29:16 by ykoh              #+#    #+#             */
-/*   Updated: 2020/07/12 15:31:38 by ykoh             ###   ########.fr       */
+/*   Updated: 2020/07/20 21:17:57 by ykoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,16 @@ static int	put_u(t_meta *fs, char *u)
 static void	*type_new_u(va_list ap, t_meta *fs)
 {
 	if (fs->length != NULL && ft_strncmp(fs->length, "ll", 2) == 0)
-		return (ft_utoa(va_arg(ap, unsigned long long int)));
+		return (ft_utoa((unsigned long long int)va_arg(ap,
+												unsigned long long int)));
 	else if (fs->length != NULL && ft_strncmp(fs->length, "l", 2) == 0)
-		return (ft_utoa(va_arg(ap, unsigned long int)));
+		return (ft_utoa((unsigned long int)va_arg(ap, unsigned long int)));
 	else if (fs->length != NULL && ft_strncmp(fs->length, "hh", 2) == 0)
 		return (ft_utoa((unsigned char)va_arg(ap, unsigned int)));
 	else if (fs->length != NULL && ft_strncmp(fs->length, "h", 2) == 0)
 		return (ft_utoa((unsigned short int)va_arg(ap, unsigned int)));
 	else
-		return (ft_utoa(va_arg(ap, unsigned int)));
+		return (ft_utoa((unsigned int)va_arg(ap, unsigned int)));
 }
 
 int			put_specifier_u(va_list ap, t_meta *fs, long long *cnt)
