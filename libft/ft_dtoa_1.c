@@ -6,7 +6,7 @@
 /*   By: ykoh <ykoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/01 04:44:51 by ykoh              #+#    #+#             */
-/*   Updated: 2020/07/16 05:18:44 by ykoh             ###   ########.fr       */
+/*   Updated: 2020/07/20 22:12:44 by ykoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char		*ft_dtoa(double n, int precision, char specifier)
 		return (ft_strjoin_free(ret, ft_dtoa_exception(n)));
 	n = (ft_isneg_dbl(n)) ? -n : n;
 	precision = (precision < 0) ? 6 : precision;
-	ret = ft_dtoa_process(n, precision + 309, ret);
+	ret = ft_dtoa_process(n, precision + 20, ret);
 	if (specifier == 'e')
 		return (ft_dtoa_scientific(n, precision, ret));
 	else

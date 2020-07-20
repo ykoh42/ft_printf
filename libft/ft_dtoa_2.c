@@ -6,7 +6,7 @@
 /*   By: ykoh <ykoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/01 04:44:51 by ykoh              #+#    #+#             */
-/*   Updated: 2020/07/16 05:19:40 by ykoh             ###   ########.fr       */
+/*   Updated: 2020/07/20 22:13:11 by ykoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static char	*convert_scientific(char *ret, int precision, int exp)
 static char	*reset_ret_if_exp_minus(int precision, char *ret,
 									char *tmp, int neg)
 {
-	tmp = ft_strndup(tmp - 1, precision + 309);
+	tmp = ft_strndup(tmp - 1, precision + 20);
 	tmp = ft_round(tmp, precision);
 	free(ret);
 	ret = (neg) ? ft_strjoin_free(ft_strdup("-"), tmp) : tmp;
@@ -76,7 +76,7 @@ static char	*reset_ret_if_exp_minus(int precision, char *ret,
 static char	*reset_ret_if_exp_plus(int precision, char *ret,
 									char *tmp, int neg)
 {
-	tmp = ft_strndup(ft_strchr(ret, '.') - 1, precision + 309);
+	tmp = ft_strndup(ft_strchr(ret, '.') - 1, precision + 20);
 	tmp = ft_round(tmp, precision);
 	free(ret);
 	ret = (neg) ? ft_strjoin_free(ft_strdup("-"), tmp) : tmp;
