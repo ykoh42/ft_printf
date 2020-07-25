@@ -6,7 +6,7 @@
 /*   By: ykoh <ykoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/18 16:39:50 by ykoh              #+#    #+#             */
-/*   Updated: 2020/07/13 22:55:42 by ykoh             ###   ########.fr       */
+/*   Updated: 2020/07/26 01:47:26 by ykoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ typedef struct	s_meta {
 	char	space;
 	char	hash;
 	char	zero;
-	char	flag;
 	int		width;
 	int		precision;
 	char	*length;
