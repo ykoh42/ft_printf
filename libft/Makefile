@@ -6,12 +6,11 @@
 #    By: ykoh <ykoh@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/04/21 18:18:48 by ykoh              #+#    #+#              #
-#    Updated: 2020/07/16 00:50:09 by ykoh             ###   ########.fr        #
+#    Updated: 2020/10/01 12:59:11 by ykoh             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS		=	ft_atoi.c\
-				ft_abs.c\
 				ft_bzero.c\
 				ft_calloc.c\
 				ft_isalnum.c\
@@ -23,12 +22,9 @@ SRCS		=	ft_atoi.c\
 				ft_isupper.c\
 				ft_islower.c\
 				ft_itoa.c\
-				ft_lltoa.c\
+				ft_octtoa.c\
 				ft_hextoa.c\
 				ft_utoa.c\
-				ft_dtoa_1.c\
-				ft_dtoa_2.c\
-				ft_dtoa_3.c\
 				ft_memccpy.c\
 				ft_memchr.c\
 				ft_memcmp.c\
@@ -46,14 +42,12 @@ SRCS		=	ft_atoi.c\
 				ft_strdup.c\
 				ft_strndup.c\
 				ft_strjoin.c\
-				ft_strjoin_free.c\
 				ft_strlcat.c\
 				ft_strlcpy.c\
 				ft_strlen.c\
 				ft_wcslen.c\
 				ft_strnlen.c\
 				ft_strrev.c\
-				ft_swap.c\
 				ft_strmapi.c\
 				ft_strncmp.c\
 				ft_strnstr.c\
@@ -62,12 +56,12 @@ SRCS		=	ft_atoi.c\
 				ft_substr.c\
 				ft_tolower.c\
 				ft_toupper.c\
-				ft_isinf.c\
-				ft_isnan.c\
-				ft_isneg_dbl.c\
-				ft_pow.c\
-				ft_log10.c\
-				ft_round.c
+				ft_dtoa/ft_dtoa.c\
+				ft_dtoa/rounding.c\
+				ft_dtoa/set_integer.c\
+				ft_dtoa/set_fractional.c\
+				ft_dtoa/get_str_e.c\
+				get_next_line.c
 
 SRCS_BONUS	=	ft_lstadd_back.c\
 				ft_lstadd_front.c\
@@ -97,10 +91,7 @@ endif
 $(NAME) :	$(OBJ_SWITCH)
 			$(LIB) $@ $^
 
-all		:	$(NAME) bonus
-
-bonus	:
-			make WITH_BONUS=1 $(NAME)
+all		:	bonus $(NAME)
 
 clean	:
 			$(RM) $(OBJS) $(OBJS_BONUS)
@@ -110,4 +101,7 @@ fclean	:	clean
 
 re		:	fclean all
 
-.PHONY	:	all bonus clean fclean re
+bonus	:
+			$(MAKE) WITH_BONUS=1 $(NAME)
+
+.PHONY	:	all clean fclean re bonus

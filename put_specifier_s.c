@@ -5,72 +5,98 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ykoh <ykoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/21 16:30:28 by ykoh              #+#    #+#             */
-/*   Updated: 2020/07/13 22:47:51 by ykoh             ###   ########.fr       */
+/*   Created: 2020/07/12 15:46:13 by ykoh              #+#    #+#             */
+/*   Updated: 2020/09/05 00:07:21 by ykoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	length_l(va_list ap, t_meta *fs, long long *cnt)
+int				get_wchar_byte(wchar_t c)
 {
-	const wchar_t	*s = va_arg(ap, wchar_t *);
-	int				width_cnt;
-
-	if (s == NULL)
-		s = L"(null)";
-	if (fs->minus)
-	{
-		width_cnt = (fs->precision == -1 || fs->precision > ft_wcsbyte(s)) ?
-			put_wcstr(s, ft_wcsbyte(s), fs) : put_wcstr(s, fs->precision, fs);
-		if (fs->width && fs->width > width_cnt)
-			*cnt += put_space_n(fs->width - width_cnt);
-		*cnt += width_cnt;
-	}
+	if (c <= 0x7F)
+		return (1);
+	else if (c <= 0x7FF)
+		return (2);
+	else if (c <= 0xFFFF)
+		return (3);
+	else if (c <= 0x1FFFFF)
+		return (4);
+	else if (c <= 0x3FFFFFF)
+		return (5);
 	else
-	{
-		width_cnt = (fs->precision == -1 || fs->precision > ft_wcsbyte(s)) ?
-			put_wcstr(s, ft_wcsbyte(s), fs) : put_wcstr(s, fs->precision, fs);
-		if (fs->width && fs->width > width_cnt)
-			*cnt += (fs->zero && fs->precision == -1) ?
-		put_zero_n(fs->width - width_cnt) : put_space_n(fs->width - width_cnt);
-		fs->minus = '-';
-		*cnt += put_wcstr(s, width_cnt, fs);
-	}
-	return (*cnt);
+		return (6);
 }
 
-static int	length_none(va_list ap, t_meta *fs, long long *cnt)
+int				ft_wcsbyte(const wchar_t *s)
 {
-	const char	*s = va_arg(ap, char *);
-	int			width_cnt;
+	int	ret;
 
-	if (s == NULL)
-		s = "(null)";
-	if (fs->minus)
+	ret = 0;
+	while (*s)
 	{
-		width_cnt = (fs->precision == -1 || fs->precision > (int)ft_strlen(s)) ?
-				write(1, s, ft_strlen(s)) : write(1, s, fs->precision);
-		if (fs->width && fs->width > width_cnt)
-			*cnt += put_space_n(fs->width - width_cnt);
-		*cnt += width_cnt;
+		ret += get_wchar_byte(*s);
+		s++;
 	}
-	else
-	{
-		width_cnt = (fs->precision == -1 || fs->precision > (int)ft_strlen(s)) ?
-				ft_strlen(s) : fs->precision;
-		if (fs->width && fs->width > width_cnt)
-			*cnt += (fs->zero && fs->precision == -1) ?
-		put_zero_n(fs->width - width_cnt) : put_space_n(fs->width - width_cnt);
-		*cnt += write(1, s, width_cnt);
-	}
-	return (*cnt);
+	return (ret);
 }
 
-int			put_specifier_s(va_list ap, t_meta *fs, long long *cnt)
+static int		put_wcstr(const wchar_t *s, ssize_t nbyte)
 {
-	if (fs->length != NULL && ft_strncmp(fs->length, "l", 2) == 0)
-		return (length_l(ap, fs, cnt));
+	int	ret;
+
+	ret = 0;
+	while (*s)
+	{
+		nbyte -= get_wchar_byte(*s);
+		if (nbyte >= 0)
+			ret += ft_putwchar_fd(*s, 1);
+		s++;
+	}
+	return (ret);
+}
+
+static void		put_specifier_s_flag_minus(t_fs fs, int *ret)
+{
+	if (fs.s.none)
+	{
+		*ret += (fs.precision == -1 ||
+				fs.precision > (int)ft_strlen(fs.s.none)) ?
+		put_space(fs) + write(1, fs.s.none, ft_strlen(fs.s.none)) :
+		put_space(fs) + write(1, fs.s.none, fs.precision);
+	}
 	else
-		return (length_none(ap, fs, cnt));
+	{
+		*ret += (fs.precision == -1 ||
+				fs.precision > (int)ft_wcsbyte(fs.s.l)) ?
+		put_space(fs) + put_wcstr(fs.s.l, ft_wcsbyte(fs.s.l)) :
+		put_space(fs) + put_wcstr(fs.s.l, fs.precision);
+	}
+}
+
+int				put_specifier_s(t_fs fs)
+{
+	int	ret;
+
+	ret = 0;
+	if (fs.minus)
+	{
+		if (fs.s.none)
+		{
+			ret += (fs.precision == -1 ||
+					fs.precision > (int)ft_strlen(fs.s.none)) ?
+			write(1, fs.s.none, ft_strlen(fs.s.none)) + put_space(fs) :
+			write(1, fs.s.none, fs.precision) + put_space(fs);
+		}
+		else
+		{
+			ret += (fs.precision == -1 ||
+					fs.precision > (int)ft_wcsbyte(fs.s.l)) ?
+			put_wcstr(fs.s.l, ft_wcsbyte(fs.s.l)) + put_space(fs) :
+			put_wcstr(fs.s.l, fs.precision) + put_space(fs);
+		}
+	}
+	else
+		put_specifier_s_flag_minus(fs, &ret);
+	return (ret);
 }

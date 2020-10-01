@@ -1,4 +1,4 @@
-# Welcome to the ft_printf! ![score](https://img.shields.io/badge/0/100-5cb85c?style=for-the-badge) 
+# Welcome to the ft_printf! ![score](https://img.shields.io/badge/115/100-5cb85c?style=for-the-badge) 
 > ft_printf is the project, which recodes printf.
 
 A format specifier follows this prototype :  
@@ -9,13 +9,13 @@ A format specifier follows this prototype :
 It works in the following conversions :
 | flags | length | specifier |
 | - | - | - |
-| `-0# +` | `l ll h hh` | `nfgecspdiuxX%` |
+| `-0# +` | `l ll h hh` | `diuoxXfegcspn%` |
 
 <br/>
 
 **The relationship chart between length and specifier**
 
-| length | `d` `i` |   `u` `x` `X`   |           `f` `e` `g`           | `c` | `s` | `p` | `n` |
+| length | `d` `i` |   `u` `o` `x` `X`   |           `f` `e` `g`           | `c` | `s` | `p` | `n` |
 |    -   |    -    |        -        |                -                |  -  |  -  |  -  |  -  |
 | (none) | int     | unsigned int    | double | int | char * | void * | int * |
 |   hh   | signed char | unsigned char ||||                    | signed char * |

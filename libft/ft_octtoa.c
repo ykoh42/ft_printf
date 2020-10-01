@@ -1,29 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin_free.c                                  :+:      :+:    :+:   */
+/*   ft_octtoa.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ykoh <ykoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/14 16:31:35 by ykoh              #+#    #+#             */
-/*   Updated: 2020/07/12 19:15:26 by ykoh             ###   ########.fr       */
+/*   Created: 2020/04/16 18:39:55 by ykoh              #+#    #+#             */
+/*   Updated: 2020/09/30 18:07:36 by ykoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin_free(char const *s1, char const *s2)
+static	size_t	get_width(unsigned long long n)
 {
-	size_t	str_len;
-	char	*str;
+	size_t	width;
 
-	if (!s1 || !s2)
+	width = (n == 0);
+	while (n)
+	{
+		n /= 8;
+		width++;
+	}
+	return (width);
+}
+
+char			*ft_octtoa(unsigned long long n)
+{
+	char			*num;
+	int				rem;
+	size_t			i;
+	const size_t	width = get_width(n);
+
+	if (!(num = ft_calloc(width + 1, sizeof(char))))
 		return (NULL);
-	str_len = ft_strlen(s1) + ft_strlen(s2);
-	if (!(str = malloc((str_len + 1) * sizeof(char))))
-		return (NULL);
-	ft_strlcpy(str + ft_strlcpy(str, s1, str_len + 1), s2, str_len + 1);
-	free((void *)s1);
-	free((void *)s2);
-	return (str);
+	i = 0;
+	while (i < width)
+	{
+		rem = n % 8;
+		n = n / 8;
+		num[i] = "01234567"[rem];
+		i++;
+	}
+	return (ft_strrev(num));
 }

@@ -6,44 +6,44 @@
 /*   By: ykoh <ykoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 18:39:55 by ykoh              #+#    #+#             */
-/*   Updated: 2020/07/20 21:08:06 by ykoh             ###   ########.fr       */
+/*   Updated: 2020/08/17 17:11:26 by ykoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	size_t	ft_numlen(int n)
+static	size_t	get_width(long long n)
 {
-	size_t	len;
+	size_t	width;
 
-	len = (n <= 0) ? 1 : 0;
+	width = (n <= 0);
 	while (n)
 	{
 		n /= 10;
-		len++;
+		width++;
 	}
-	return (len);
+	return (width);
 }
 
-char			*ft_itoa(int n)
+char			*ft_itoa(long long n)
 {
 	char			*num;
-	char			rem;
+	int				rem;
 	size_t			i;
-	const char		neg = (n < 0) ? 1 : 0;
-	const size_t	num_len = ft_numlen(n);
+	const char		neg = (n < 0);
+	const size_t	width = get_width(n);
 
-	if (n == INT_MIN)
-		return (ft_strdup("-2147483648"));
-	if (!(num = ft_calloc(num_len + 1, sizeof(char))))
+	if (n == LLONG_MIN)
+		return (ft_strdup("-9223372036854775808"));
+	if (!(num = ft_calloc(width + 1, sizeof(char))))
 		return (NULL);
-	n = ft_abs(n);
+	n = (neg) ? -n : n;
 	i = 0;
-	while (i < num_len)
+	while (i < width)
 	{
 		rem = n % 10;
 		n = n / 10;
-		num[i] = rem + '0';
+		num[i] = "0123456789"[rem];
 		i++;
 	}
 	if (neg)

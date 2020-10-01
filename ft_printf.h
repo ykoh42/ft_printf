@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ykoh <ykoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/18 16:39:50 by ykoh              #+#    #+#             */
-/*   Updated: 2020/07/26 01:47:26 by ykoh             ###   ########.fr       */
+/*   Created: 2020/09/02 22:40:04 by ykoh              #+#    #+#             */
+/*   Updated: 2020/09/15 02:10:44 by ykoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,54 +17,60 @@
 
 # include <stdarg.h>
 # include <unistd.h>
-# include <limits.h>
-# include <stdlib.h>
 # include <wchar.h>
 
-typedef struct	s_meta {
-	char	minus;
-	char	plus;
-	char	space;
-	char	hash;
-	char	zero;
-	int		width;
-	int		precision;
-	char	*length;
-	char	specifier;
-}				t_meta;
+typedef struct	s_num {
+	char	*sign;
+	char	*hash;
+	char	*num;
+}				t_num;
 
-typedef ssize_t	(*t_write)(int, const void *, size_t);
+typedef struct	s_char {
+	int		none;
+	wint_t	l;
+}				t_char;
 
-int				ft_printf(const char *restrict format, ...);
+typedef struct	s_str {
+	char	*none;
+	wchar_t	*l;
+}				t_str;
 
-void			set_positional(char **str);
-void			set_flag(char **str, t_meta *fs);
-void			set_width(char **str, va_list ap, t_meta *fs);
-void			set_precision(char **str, va_list ap, t_meta *fs);
-void			set_length(char **str, t_meta *fs);
+typedef struct	s_format_specifier {
+	char			minus;
+	char			plus;
+	char			space;
+	char			hash;
+	char			zero;
+	int				width;
+	int				precision;
+	char			*length;
+	char			specifier;
+	int				padding;
+	t_num			num;
+	t_char			c;
+	t_str			s;
+}				t_fs;
 
-int				va_free(int argc, ...);
+int				ft_printf(const char *format, ...);
+void			set_fs(const char **format, t_fs *fs, va_list ap);
 
-int				put_specifier_percent(va_list ap, t_meta *fs, long long *cnt);
-int				put_specifier_c(va_list ap, t_meta *fs, long long *cnt);
+void			manage_length(va_list ap, t_fs *fs, int nbyte);
+void			manage_length_n(va_list ap, t_fs *fs, int nbyte);
 
-int				put_specifier_n(va_list ap, t_meta *fs, long long *cnt);
+void			manage_precision(t_fs *fs);
+void			manage_flags(t_fs *fs);
+void			manage_width(t_fs *fs);
 
-int				put_specifier_s(va_list ap, t_meta *fs, long long *cnt);
-int				put_specifier_di(va_list ap, t_meta *fs, long long *cnt);
-int				put_specifier_u(va_list ap, t_meta *fs, long long *cnt);
-int				put_specifier_x(va_list ap, t_meta *fs, long long *cnt);
-int				put_specifier_p(va_list ap, t_meta *fs, long long *cnt);
-int				put_specifier_efg(va_list ap, t_meta *fs, long long *cnt);
-const char		*select_ret(va_list ap, t_meta *fs);
+int				put_specifier_diuxp(t_fs fs);
+int				put_specifier_efg(t_fs fs);
+int				put_specifier_c(t_fs fs);
+int				put_specifier_s(t_fs fs);
+int				put_specifier_percent(t_fs fs);
 
-size_t			put_space_n(size_t n);
-size_t			put_zero_n(size_t n);
-ssize_t			without_write(int fildes, const void *buf, size_t nbyte);
-int				put_sign(t_meta *fs, char *n);
+int				put_space(t_fs fs);
+int				put_zero(t_fs fs);
 
-int				put_wcstr(const wchar_t *s, ssize_t nbyte, t_meta *fs);
+int				get_wchar_byte(wchar_t c);
 int				ft_wcsbyte(const wchar_t *s);
 
-int				va_free(int argc, ...);
 #endif

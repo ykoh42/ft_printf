@@ -6,24 +6,20 @@
 #    By: ykoh <ykoh@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/04/21 18:18:48 by ykoh              #+#    #+#              #
-#    Updated: 2020/07/16 04:49:38 by ykoh             ###   ########.fr        #
+#    Updated: 2020/10/01 13:01:41 by ykoh             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS		=	ft_printf.c\
-				set_meta_data.c\
-				put_utils_char.c\
-				put_utils_wchar.c\
-				put_specifier_percent.c\
-				put_specifier_n.c\
-				put_specifier_c.c\
+				set_fs.c\
+				manage_length.c\
+				manage_length_n.c\
+				manage_precision.c\
+				manage_flags.c\
+				manage_width.c\
+				put_specifier.c\
 				put_specifier_s.c\
-				put_specifier_di.c\
-				put_specifier_u.c\
-				put_specifier_x.c\
-				put_specifier_p.c\
-				put_specifier_efg.c\
-				put_specifier_efg_select.c
+				put_specifier_utils.c
 
 OBJS		=	$(SRCS:.c=.o)
 
@@ -31,16 +27,18 @@ NAME		=	libftprintf.a
 LIBFT		=	libft
 RM			=	rm -f
 LIB			=	ar rcu
+CC			=	gcc
+CFLAGS		=	-Wall -Wextra -Werror
 
 $(NAME) :	$(OBJS)
-			make all -C $(LIBFT)/
+			$(MAKE) all -C $(LIBFT)/
 			cp $(LIBFT)/$(LIBFT).a $(NAME)
 			$(LIB) $@ $^
 
 all		:	$(NAME)
 
 clean	:
-			make clean -C $(LIBFT)/
+			$(MAKE) clean -C $(LIBFT)/
 			$(RM) $(OBJS)
 
 fclean	:	clean
@@ -51,4 +49,4 @@ re		:	fclean all
 
 bonus	:	all
 
-.PHONY	:	all bonus clean fclean re
+.PHONY	:	all clean fclean re bonus
